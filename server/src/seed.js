@@ -1,0 +1,213 @@
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
+
+const { connectDB } = require('./config/db');
+const Juego = require('./models/Juego');
+const Servicio = require('./models/Servicio');
+
+const juegos = [
+  {
+    nombre: 'Dígalo con Memes',
+    descripcion: 'Explicalo con memes y risas aseguradas para toda la mesa.',
+    imagenUrl: '',
+    edadMinima: 12,
+    duracionMinutos: 30,
+    jugadoresMin: 3,
+    jugadoresMax: 8,
+    tipos: ['rapido', 'grupos_grandes'],
+  },
+  {
+    nombre: 'Count Up',
+    descripcion: 'Cooperá para contar en equipo sin pisarse los números.',
+    imagenUrl: '',
+    edadMinima: 8,
+    duracionMinutos: 20,
+    jugadoresMin: 2,
+    jugadoresMax: 6,
+    tipos: ['cooperativo', 'rapido'],
+  },
+  {
+    nombre: 'Cleptómano',
+    descripcion: 'Robá, bluffeá y sobreviví a la tensión de la mesa.',
+    imagenUrl: '',
+    edadMinima: 10,
+    duracionMinutos: 25,
+    jugadoresMin: 3,
+    jugadoresMax: 6,
+    tipos: ['estrategico', 'rapido'],
+  },
+  {
+    nombre: 'Hop-A',
+    descripcion: 'Saltá turnos y combiná piezas en un ritmo ágil.',
+    imagenUrl: '',
+    edadMinima: 7,
+    duracionMinutos: 15,
+    jugadoresMin: 2,
+    jugadoresMax: 4,
+    tipos: ['rapido'],
+  },
+  {
+    nombre: 'The Mind',
+    descripcion: 'Sincronizá con tu equipo sin hablar. ¿Pueden leerse la mente?',
+    imagenUrl: '',
+    edadMinima: 8,
+    duracionMinutos: 20,
+    jugadoresMin: 2,
+    jugadoresMax: 4,
+    tipos: ['cooperativo'],
+  },
+  {
+    nombre: 'Codenames',
+    descripcion: 'Pistas ingeniosas para descubrir agentes secretos.',
+    imagenUrl: '',
+    edadMinima: 10,
+    duracionMinutos: 30,
+    jugadoresMin: 4,
+    jugadoresMax: 8,
+    tipos: ['estrategico', 'grupos_grandes'],
+  },
+  {
+    nombre: 'Just One',
+    descripcion: 'Una sola pista perfecta: cooperá y pensá diferente.',
+    imagenUrl: '',
+    edadMinima: 8,
+    duracionMinutos: 20,
+    jugadoresMin: 3,
+    jugadoresMax: 7,
+    tipos: ['cooperativo', 'rapido', 'grupos_grandes'],
+  },
+  {
+    nombre: 'Azul',
+    descripcion: 'Patrones de azulejos, belleza y decisiones tácticas.',
+    imagenUrl: '',
+    edadMinima: 8,
+    duracionMinutos: 45,
+    jugadoresMin: 2,
+    jugadoresMax: 4,
+    tipos: ['estrategico'],
+  },
+  {
+    nombre: 'Dixit',
+    descripcion: 'Imágenes oníricas y narración compartida.',
+    imagenUrl: '',
+    edadMinima: 8,
+    duracionMinutos: 30,
+    jugadoresMin: 3,
+    jugadoresMax: 8,
+    tipos: ['grupos_grandes'],
+  },
+  {
+    nombre: 'Wavelength',
+    descripcion: 'Afiná la frecuencia del equipo con pistas subjetivas.',
+    imagenUrl: '',
+    edadMinima: 12,
+    duracionMinutos: 45,
+    jugadoresMin: 2,
+    jugadoresMax: 12,
+    tipos: ['grupos_grandes'],
+  },
+  {
+    nombre: 'Exploding Kittens',
+    descripcion: 'Cartas caóticas, gatos y explosiones evitables.',
+    imagenUrl: '',
+    edadMinima: 7,
+    duracionMinutos: 15,
+    jugadoresMin: 2,
+    jugadoresMax: 5,
+    tipos: ['rapido'],
+  },
+  {
+    nombre: 'Pandemic',
+    descripcion: 'Salvá el mundo cooperando contra brotes globales.',
+    imagenUrl: '',
+    edadMinima: 10,
+    duracionMinutos: 60,
+    jugadoresMin: 2,
+    jugadoresMax: 4,
+    tipos: ['cooperativo', 'estrategico'],
+  },
+  {
+    nombre: 'Ticket to Ride',
+    descripcion: 'Rutas, trenes y planificación a largo plazo.',
+    imagenUrl: '',
+    edadMinima: 8,
+    duracionMinutos: 60,
+    jugadoresMin: 2,
+    jugadoresMax: 5,
+    tipos: ['estrategico'],
+  },
+  {
+    nombre: 'Dobble',
+    descripcion: 'Reflejos puros: encontrá el símbolo en común.',
+    imagenUrl: '',
+    edadMinima: 6,
+    duracionMinutos: 10,
+    jugadoresMin: 2,
+    jugadoresMax: 8,
+    tipos: ['rapido', 'grupos_grandes'],
+  },
+  {
+    nombre: 'The Crew',
+    descripcion: 'Misiones cooperativas de bazas en el espacio.',
+    imagenUrl: '',
+    edadMinima: 10,
+    duracionMinutos: 20,
+    jugadoresMin: 3,
+    jugadoresMax: 5,
+    tipos: ['cooperativo', 'estrategico'],
+  },
+  {
+    nombre: 'Skull',
+    descripcion: 'Bluff puro con calaveras y flores.',
+    imagenUrl: '',
+    edadMinima: 10,
+    duracionMinutos: 20,
+    jugadoresMin: 3,
+    jugadoresMax: 6,
+    tipos: ['rapido', 'estrategico'],
+  },
+];
+
+const servicios = [
+  {
+    nombre: 'Noches de Juegos',
+    slug: 'noches-de-juegos',
+    descripcion:
+      'Una noche completa de juego facilitado: recomendamos partidas, explicamos reglas y cuidamos la dinámica para que todos jueguen.',
+    imagenUrl: '',
+    orden: 1,
+  },
+  {
+    nombre: 'Eventos',
+    slug: 'eventos',
+    descripcion:
+      'Cumpleaños, cierres de año, encuentros institucionales o fiestas: armamos la experiencia lúdica a medida de tu grupo.',
+    imagenUrl: '',
+    orden: 2,
+  },
+  {
+    nombre: 'Instalaciones Lúdicas',
+    slug: 'instalaciones-ludicas',
+    descripcion:
+      'Montamos una ludoteca viva en tu espacio con materiales, facilitadores y circulación pensada para jugar sin fricción.',
+    imagenUrl: '',
+    orden: 3,
+  },
+];
+
+async function seed() {
+  try {
+    await connectDB(process.env.MONGODB_URI);
+    await Juego.deleteMany({});
+    await Servicio.deleteMany({});
+    await Juego.insertMany(juegos.map((j) => ({ ...j, activo: true })));
+    await Servicio.insertMany(servicios);
+    console.log(`Seed OK: ${juegos.length} juegos y ${servicios.length} servicios`);
+    process.exit(0);
+  } catch (error) {
+    console.error('Error en seed:', error.message);
+    process.exit(1);
+  }
+}
+
+seed();
