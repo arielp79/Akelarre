@@ -7,22 +7,17 @@ Sitio institucional MERN según el [PRD](./PRD_Akelarre_Juegos_en_Movimiento.md)
 - Node.js 20+
 - MongoDB local o [MongoDB Atlas](https://www.mongodb.com/atlas)
 
-## Setup
+## Setup local
 
 ```bash
-# Dependencias (si aún no están)
 npm install
 npm install --prefix server
 npm install --prefix client
 
-# Configurar entorno del API
 copy server\.env.example server\.env
 # Editar MONGODB_URI si usás Atlas
 
-# Cargar catálogo de ejemplo
 npm run seed
-
-# Levantar API (puerto 4000) + frontend (puerto 5173)
 npm run dev
 ```
 
@@ -46,9 +41,45 @@ API health: http://localhost:4000/api/health
 | `GET` | `/api/servicios` | Servicios |
 | `POST` | `/api/contacto` | Solicitud de contratación |
 
+## Deploy: MongoDB Atlas + Render + Netlify
+
+### 1. MongoDB Atlas
+
+1. Creá un cluster (free M0).
+2. **Database Access:** usuario con contraseña.
+3. **Network Access:** allow `0.0.0.0/0` (o IPs de Render).
+4. **Connect → Drivers** y copiá la URI, por ejemplo:
+   `mongodb+srv://USER:PASS@cluster.mongodb.net/akelarre?retryWrites=true&w=majority`
+
+### 2. Backend en Render
+
+El repo incluye [`render.yaml`](./render.yaml).
+
+1. En [Render](https://dashboard.render.com) → **New → Blueprint** (o Web Service) apuntando a `https://github.com/arielp79/Akelarre`.
+2. Si es Web Service manual:
+   - **Root Directory:** `server`
+   - **Build Command:** `npm install`
+   - **Start Command:** `npm start`
+   - **Health Check Path:** `/api/health`
+3. Variables de entorno:
+   - `MONGODB_URI` = URI de Atlas
+   - `CLIENT_URL` = URL de Netlify (ej. `https://tu-sitio.netlify.app`). Podés sumar local: `https://tu-sitio.netlify.app,http://localhost:5173`
+   - `NODE_ENV` = `production`
+4. Deploy. Probá: `https://TU-SERVICIO.onrender.com/api/health`
+5. Sembrar datos (una vez), en el **Shell** de Render:
+   ```bash
+   npm run seed
+   ```
+
+### 3. Frontend en Netlify
+
+1. Site settings → **Environment variables**:
+   - `VITE_API_URL` = `https://TU-SERVICIO.onrender.com` (sin barra final)
+2. Trigger **Clear cache and deploy site** (Vite embebe la URL en el build).
+
 ## Estructura
 
 ```
-client/   React + Vite + Tailwind
-server/   Express + Mongoose
+client/   React + Vite + Tailwind → Netlify
+server/   Express + Mongoose → Render
 ```
