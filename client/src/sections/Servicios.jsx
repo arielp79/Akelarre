@@ -9,21 +9,21 @@ const FALLBACK = [
     _id: '1',
     nombre: 'Noches de Juegos',
     descripcion:
-      'Una noche completa de juego facilitado: recomendamos partidas, explicamos reglas y cuidamos la dinámica.',
+      'Una noche completa de juego facilitado: recomendamos partidas, explicamos reglas y cuidamos la dinámica para que todos jueguen.',
     slug: 'noches-de-juegos',
   },
   {
     _id: '2',
     nombre: 'Eventos',
     descripcion:
-      'Cumpleaños, cierres de año o encuentros institucionales: armamos la experiencia a medida.',
+      'Cumpleaños, cierres de año, encuentros institucionales o fiestas: armamos la experiencia lúdica a medida de tu grupo.',
     slug: 'eventos',
   },
   {
     _id: '3',
     nombre: 'Instalaciones Lúdicas',
     descripcion:
-      'Montamos una ludoteca viva en tu espacio con materiales y facilitadores.',
+      'Montamos una ludoteca viva en tu espacio con materiales, facilitadores y circulación pensada para jugar sin fricción.',
     slug: 'instalaciones-ludicas',
   },
 ];
