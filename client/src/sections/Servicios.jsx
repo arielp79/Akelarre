@@ -48,7 +48,7 @@ const cloudCardClass =
 
 /** Tamaño fijo de nube (no %): el texto completo no la agranda ni la achica */
 const cloudImgClass =
-  'pointer-events-none absolute left-[calc(50%-20px)] top-[calc(50%-10px)] z-0 h-[42rem] w-[72rem] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain sm:h-[45rem] sm:w-[78rem]';
+  'pointer-events-none absolute left-[calc(50%-20px)] top-[calc(50%-10px)] z-0 h-[35.7rem] w-[61.2rem] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain sm:h-[38.25rem] sm:w-[66.3rem]';
 
 const cloudTextClass =
   'relative z-10 flex -translate-x-[20px] -translate-y-[10px] flex-col items-center justify-center text-center';
