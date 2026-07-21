@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { getJuegoRandom, getJuegos } from '../api';
+import boton2 from '../assets/boton2.png';
+import boton3 from '../assets/boton3.png';
 
 const TIPOS = [
   { value: '', label: 'Todos' },
@@ -94,8 +96,16 @@ export default function Ludoteca() {
             Más de 80 juegos. Filtrá y descubrí tu próxima partida.
           </p>
         </div>
-        <span className="inline-flex w-fit items-center rounded-full border-[3px] border-ak-ink bg-ak-yellow px-4 py-2 font-display text-sm font-bold shadow-[3px_3px_0_0_#111]">
-          ¡Más de 80 Juegos!
+        <span className="relative inline-flex h-[5.25rem] w-[21rem] shrink-0 items-center justify-center self-end sm:h-24 sm:w-96">
+          <img
+            src={boton3}
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-1/2 h-[300%] w-[300%] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain mix-blend-screen"
+          />
+          <span className="relative z-10 px-3 text-center font-display text-sm font-bold text-ak-ink sm:text-base">
+            ¡Más de 80 Juegos!
+          </span>
         </span>
       </div>
 
@@ -163,13 +173,25 @@ export default function Ludoteca() {
         </label>
       </div>
 
-      <div className="mb-4 flex flex-wrap items-center gap-3">
-        <button type="button" className="ak-btn-accent" onClick={handleSorprendeme}>
-          ¡Sorpréndeme!
+      <div className="relative z-10 mb-4 flex flex-wrap items-center gap-3 overflow-visible">
+        <button
+          type="button"
+          onClick={handleSorprendeme}
+          className="relative inline-flex h-11 w-44 shrink-0 items-center justify-center overflow-visible sm:h-12 sm:w-48"
+        >
+          <img
+            src={boton2}
+            alt=""
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-1/2 h-[15.75rem] w-[63rem] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain mix-blend-screen sm:h-[18rem] sm:w-[72rem]"
+          />
+          <span className="relative z-10 px-3 text-center font-display text-sm font-bold text-ak-ink sm:text-base">
+            ¡Sorpréndeme!
+          </span>
         </button>
-        <p className="font-semibold text-ak-ink/70">{countLabel}</p>
+        <p className="relative z-10 font-semibold text-ak-ink/70">{countLabel}</p>
         {surpriseMsg && (
-          <p className="font-display font-bold text-ak-purple">{surpriseMsg}</p>
+          <p className="relative z-10 font-display font-bold text-ak-purple">{surpriseMsg}</p>
         )}
       </div>
 
