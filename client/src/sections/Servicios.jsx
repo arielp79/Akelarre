@@ -44,11 +44,11 @@ const NUBE_POR_NOMBRE = {
 const NUBE_POR_INDICE = [nube1, nube4, nube2];
 
 const cloudCardClass =
-  'relative min-h-[12rem] min-w-[80%] shrink-0 snap-center overflow-visible bg-transparent p-5 transition duration-200 hover:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:min-w-[60%] md:min-w-0';
+  'relative min-w-[80%] shrink-0 snap-center overflow-visible bg-transparent p-5 transition duration-200 hover:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:min-w-[60%] md:min-w-0';
 
-/** 360% de la tarjeta; min-h + line-clamp evitan que el texto de la API agrande la nube */
+/** Tamaño fijo de nube (no %): el texto completo no la agranda ni la achica */
 const cloudImgClass =
-  'pointer-events-none absolute left-[calc(50%-20px)] top-[calc(50%-10px)] z-0 h-[360%] w-[360%] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain';
+  'pointer-events-none absolute left-[calc(50%-20px)] top-[calc(50%-10px)] z-0 h-[28rem] w-[48rem] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain sm:h-[30rem] sm:w-[52rem]';
 
 const cloudTextClass =
   'relative z-10 flex -translate-x-[20px] -translate-y-[10px] flex-col items-center justify-center text-center';
@@ -98,7 +98,7 @@ export default function Servicios() {
 
               <div className={cloudTextClass}>
                 <h3 className="mt-2 text-2xl">{servicio.nombre}</h3>
-                <p className="mt-3 line-clamp-3 font-semibold leading-relaxed text-ak-ink/85">
+                <p className="mt-3 font-semibold leading-relaxed text-ak-ink/85">
                   {servicio.descripcion}
                 </p>
               </div>
