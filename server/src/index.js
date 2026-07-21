@@ -4,6 +4,7 @@ require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const express = require('express');
 const cors = require('cors');
 const { connectDB } = require('./config/db');
+const { ensureSeed } = require('./ensureSeed');
 const juegosRouter = require('./routes/juegos');
 const serviciosRouter = require('./routes/servicios');
 const contactoRouter = require('./routes/contacto');
@@ -54,6 +55,7 @@ app.use((err, _req, res, _next) => {
 async function start() {
   try {
     await connectDB(process.env.MONGODB_URI);
+    await ensureSeed();
     app.listen(PORT, () => {
       console.log(`API Akelarre en puerto ${PORT}`);
       console.log(`CORS permitido: ${allowedOrigins.join(', ') || '(ninguno)'}`);

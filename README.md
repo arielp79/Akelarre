@@ -66,10 +66,9 @@ El repo incluye [`render.yaml`](./render.yaml).
    - `CLIENT_URL` = URL de Netlify (ej. `https://tu-sitio.netlify.app`). Podés sumar local: `https://tu-sitio.netlify.app,http://localhost:5173`
    - `NODE_ENV` = `production`
 4. Deploy. Probá: `https://TU-SERVICIO.onrender.com/api/health`
-5. Sembrar datos (una vez), en el **Shell** de Render:
-   ```bash
-   npm run seed
-   ```
+5. Sembrar datos: en el plan free de Render no hay Shell.
+   La API hace **auto-seed** al arrancar si juegos/servicios están vacíos.
+   Tras el primer deploy con esa lógica, reiniciá el servicio (o esperá el redeploy).
 
 ### 3. Frontend en Netlify
 
