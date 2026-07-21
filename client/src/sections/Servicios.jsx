@@ -51,7 +51,7 @@ const cloudImgClass =
   'pointer-events-none absolute left-[calc(50%-20px)] top-[calc(50%-10px)] z-0 h-[39.35925rem] w-[67.473rem] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain sm:h-[42.170625rem] sm:w-[73.09575rem]';
 
 const cloudTextClass =
-  'relative z-10 flex -translate-x-[20px] -translate-y-[10px] flex-col items-center justify-center text-center';
+  'relative z-10 flex -translate-x-[20px] -translate-y-[5px] flex-col items-center justify-center text-center';
 
 export default function Servicios() {
   const [servicios, setServicios] = useState(FALLBACK);
@@ -68,7 +68,7 @@ export default function Servicios() {
 
   return (
     <section id="servicios" className="ak-section overflow-visible">
-      <div className="mb-8 max-w-2xl">
+      <div className="mb-[90px] max-w-2xl">
         <h2 className="text-3xl sm:text-4xl">Nuestros Servicios</h2>
         <p className="mt-2 font-semibold text-ak-ink/80">
           Tres formas de llevar el juego a tu espacio.
@@ -76,7 +76,7 @@ export default function Servicios() {
       </div>
 
       {/* overflow-visible para que las nubes ×360% no se corten (igual en local y Netlify) */}
-      <div className="grid grid-cols-1 gap-8 overflow-visible sm:grid-cols-2 md:grid-cols-3 md:gap-4">
+      <div className="grid grid-cols-1 gap-[47px] overflow-visible sm:grid-cols-2 md:grid-cols-3 md:gap-[31px]">
         {servicios.map((servicio, index) => {
           const nube =
             NUBE_POR_SLUG[servicio.slug] ||
@@ -93,7 +93,11 @@ export default function Servicios() {
                 src={nube}
                 alt=""
                 aria-hidden="true"
-                className={cloudImgClass}
+                className={
+                  nube === nube1
+                    ? `${cloudImgClass} scale-[1.057]`
+                    : cloudImgClass
+                }
               />
 
               <div className={cloudTextClass}>
