@@ -46,9 +46,8 @@ const NUBE_POR_INDICE = [nube1, nube4, nube2];
 const cloudCardClass =
   'relative min-w-[80%] shrink-0 snap-center overflow-visible bg-transparent p-5 transition duration-200 hover:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:min-w-[60%] md:min-w-0';
 
-/** Tamaño fijo: no usa % de la tarjeta, así no crece cuando llega el texto largo de la API */
 const cloudImgClass =
-  'pointer-events-none absolute left-[calc(50%-20px)] top-[calc(50%-10px)] z-0 h-[20rem] w-[36rem] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain sm:h-[22rem] sm:w-[40rem]';
+  'pointer-events-none absolute left-[calc(50%-20px)] top-[calc(50%-10px)] z-0 h-[360%] w-[360%] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain';
 
 const cloudTextClass =
   'relative z-10 flex -translate-x-[20px] -translate-y-[10px] flex-col items-center justify-center text-center';
