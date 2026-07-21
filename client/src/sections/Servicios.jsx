@@ -28,7 +28,7 @@ const FALLBACK = [
   },
 ];
 
-/** Misma nube/estilo que Noches: Eventos → nube4, Instalaciones → nube2 */
+/** Misma nube/estilo: Noches→nube1, Eventos→nube4, Instalaciones→nube2 */
 const NUBE_POR_SLUG = {
   'noches-de-juegos': nube1,
   eventos: nube4,
@@ -41,11 +41,13 @@ const NUBE_POR_NOMBRE = {
   'Instalaciones Lúdicas': nube2,
 };
 
+const NUBE_POR_INDICE = [nube1, nube4, nube2];
+
 const cloudCardClass =
   'relative min-w-[80%] shrink-0 snap-center overflow-visible bg-transparent p-5 transition duration-200 hover:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:min-w-[60%] md:min-w-0';
 
 const cloudImgClass =
-  'pointer-events-none absolute left-[calc(50%-20px)] top-[calc(50%-10px)] h-[360%] w-[360%] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain';
+  'pointer-events-none absolute left-[calc(50%-20px)] top-[calc(50%-10px)] z-0 h-[360%] w-[360%] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain';
 
 const cloudTextClass =
   'relative z-10 flex -translate-x-[20px] -translate-y-[10px] flex-col items-center justify-center text-center';
@@ -64,7 +66,7 @@ export default function Servicios() {
   }, []);
 
   return (
-    <section id="servicios" className="ak-section">
+    <section id="servicios" className="ak-section overflow-visible">
       <div className="mb-8 max-w-2xl">
         <h2 className="text-3xl sm:text-4xl">Nuestros Servicios</h2>
         <p className="mt-2 font-semibold text-ak-ink/80">
@@ -72,24 +74,26 @@ export default function Servicios() {
         </p>
       </div>
 
-      <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:overflow-visible md:pb-0">
-        {servicios.map((servicio) => {
+      {/* overflow-visible para que las nubes ×360% no se corten (igual en local y Netlify) */}
+      <div className="grid grid-cols-1 gap-8 overflow-visible sm:grid-cols-2 md:grid-cols-3 md:gap-4">
+        {servicios.map((servicio, index) => {
           const nube =
-            NUBE_POR_SLUG[servicio.slug] || NUBE_POR_NOMBRE[servicio.nombre] || null;
+            NUBE_POR_SLUG[servicio.slug] ||
+            NUBE_POR_NOMBRE[servicio.nombre] ||
+            NUBE_POR_INDICE[index] ||
+            nube1;
 
           return (
             <article
               key={servicio._id || servicio.slug}
               className={cloudCardClass}
             >
-              {nube && (
-                <img
-                  src={nube}
-                  alt=""
-                  aria-hidden="true"
-                  className={cloudImgClass}
-                />
-              )}
+              <img
+                src={nube}
+                alt=""
+                aria-hidden="true"
+                className={cloudImgClass}
+              />
 
               <div className={cloudTextClass}>
                 <h3 className="mt-2 text-2xl">{servicio.nombre}</h3>
