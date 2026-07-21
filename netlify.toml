@@ -5,6 +5,8 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  # Sobrescribir en el dashboard de Netlify si hace falta
+  VITE_API_URL = "https://akelarre-api.onrender.com"
 
 [[redirects]]
   from = "/*"
