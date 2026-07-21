@@ -12,21 +12,39 @@ const contactoRouter = require('./routes/contacto');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
-  .split(',')
-  .map((origin) => origin.trim())
-  .filter(Boolean);
+function normalizeOrigin(origin) {
+  return String(origin || '')
+    .trim()
+    .replace(/\/+$/, '');
+}
+
+const defaultOrigins = [
+  'http://localhost:5173',
+  'https://akelarre-juegos.netlify.app',
+];
+
+const allowedOrigins = [
+  ...new Set(
+    [...defaultOrigins, ...(process.env.CLIENT_URL || '').split(',')]
+      .map(normalizeOrigin)
+      .filter(Boolean)
+  ),
+];
 
 app.set('trust proxy', 1);
 
 app.use(
   cors({
     origin(origin, callback) {
-      // Permite tools sin Origin (curl, health checks, Render)
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin) {
         return callback(null, true);
       }
-      return callback(new Error(`Origen no permitido por CORS: ${origin}`));
+      const normalized = normalizeOrigin(origin);
+      if (allowedOrigins.includes(normalized)) {
+        return callback(null, true);
+      }
+      console.warn(`CORS bloqueado: ${origin}`);
+      return callback(null, false);
     },
   })
 );
@@ -37,6 +55,7 @@ app.get('/api/health', (_req, res) => {
     ok: true,
     service: 'akelarre-api',
     env: process.env.NODE_ENV || 'development',
+    cors: allowedOrigins,
   });
 });
 
@@ -45,9 +64,6 @@ app.use('/api/servicios', serviciosRouter);
 app.use('/api/contacto', contactoRouter);
 
 app.use((err, _req, res, _next) => {
-  if (err && String(err.message || '').includes('CORS')) {
-    return res.status(403).json({ message: err.message });
-  }
   console.error(err);
   res.status(500).json({ message: 'Error interno del servidor' });
 });
@@ -58,7 +74,7 @@ async function start() {
     await ensureSeed();
     app.listen(PORT, () => {
       console.log(`API Akelarre en puerto ${PORT}`);
-      console.log(`CORS permitido: ${allowedOrigins.join(', ') || '(ninguno)'}`);
+      console.log(`CORS permitido: ${allowedOrigins.join(', ')}`);
     });
   } catch (error) {
     console.error('No se pudo iniciar el servidor:', error.message);
