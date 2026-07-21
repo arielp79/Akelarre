@@ -177,7 +177,7 @@ export default function Ludoteca() {
         <button
           type="button"
           onClick={handleSorprendeme}
-          className="relative inline-flex h-11 w-44 shrink-0 items-center justify-center overflow-visible sm:h-12 sm:w-48"
+          className="relative inline-flex h-11 w-44 shrink-0 items-center justify-center overflow-visible transition duration-200 hover:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:h-12 sm:w-48"
         >
           <img
             src={boton2}
