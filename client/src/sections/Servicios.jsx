@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getServicios } from '../api';
 import nube1 from '../assets/nube1.png';
 import nube2 from '../assets/nube2.png';
@@ -54,12 +54,8 @@ const cloudImgClass =
 const cloudTextClass =
   'relative z-10 flex -translate-x-[20px] -translate-y-[5px] flex-col items-center justify-center text-center';
 
-const FADE_PX = 240;
-
 export default function Servicios() {
-  const sectionRef = useRef(null);
   const [servicios, setServicios] = useState(FALLBACK);
-  const [ghost, setGhost] = useState({ opacity: 0, blur: 12 });
 
   useEffect(() => {
     getServicios()
@@ -71,77 +67,9 @@ export default function Servicios() {
       });
   }, []);
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-    const update = () => {
-      // En desktop el sol no usa el efecto fantasma
-      if (window.matchMedia('(min-width: 768px)').matches) {
-        setGhost({ opacity: 1, blur: 0 });
-        return;
-      }
-
-      const rect = section.getBoundingClientRect();
-      const vh = window.innerHeight;
-
-      if (reduceMotion.matches) {
-        const visible = rect.bottom > 0 && rect.top < vh;
-        setGhost({ opacity: visible ? 1 : 0, blur: 0 });
-        return;
-      }
-
-      let opacity = 1;
-      if (rect.top >= vh || rect.bottom <= 0) {
-        opacity = 0;
-      } else {
-        if (rect.top > vh - FADE_PX) {
-          opacity = Math.min(opacity, (vh - rect.top) / FADE_PX);
-        }
-        if (rect.bottom < FADE_PX) {
-          opacity = Math.min(opacity, rect.bottom / FADE_PX);
-        }
-      }
-
-      opacity = Math.max(0, Math.min(1, opacity));
-      setGhost({ opacity, blur: (1 - opacity) * 12 });
-    };
-
-    update();
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    return () => {
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
-    };
-  }, []);
-
   return (
-    <section
-      ref={sectionRef}
-      id="servicios"
-      className="ak-section relative overflow-visible"
-    >
-      {/* Móvil: sticky a la derecha en toda la sección, aparece/desaparece como fantasma */}
-      <div
-        className="pointer-events-none sticky top-24 z-0 -mb-[min(72vh,28rem)] flex justify-end md:hidden"
-        style={{
-          opacity: ghost.opacity,
-          filter: `blur(${ghost.blur}px)`,
-          willChange: 'opacity, filter',
-        }}
-      >
-        <img
-          src={sol}
-          alt=""
-          aria-hidden="true"
-          className="h-auto max-h-[min(72vh,28rem)] w-[min(98vw,30rem)] translate-x-[18%] object-contain"
-        />
-      </div>
-
-      <div className="relative z-[1] mb-[90px] max-w-2xl">
+    <section id="servicios" className="ak-section overflow-visible">
+      <div className="mb-[90px] max-w-2xl">
         <h2 className="text-3xl sm:text-4xl">Nuestros Servicios</h2>
         <p className="mt-2 font-semibold text-ak-ink/80">
           Tres formas de llevar el juego a tu espacio.
@@ -149,16 +77,14 @@ export default function Servicios() {
       </div>
 
       {/* overflow-visible para que las nubes ×360% no se corten (igual en local y Netlify) */}
-      <div className="relative z-[1] grid grid-cols-1 gap-[70px] overflow-visible sm:grid-cols-2 md:grid-cols-3 md:gap-[47px]">
-        {/* Desktop: sol detrás entre Eventos (nube4) e Instalaciones (nube2) */}
-        <div className="pointer-events-none absolute left-[calc(66.666%+20px)] top-[calc(50%-100px)] z-0 hidden h-[32rem] w-[32rem] max-w-none -translate-x-1/2 -translate-y-1/2 md:block">
-          <img
-            src={sol}
-            alt=""
-            aria-hidden="true"
-            className="h-full w-full object-contain"
-          />
-        </div>
+      <div className="relative grid grid-cols-1 gap-[70px] overflow-visible sm:grid-cols-2 md:grid-cols-3 md:gap-[47px]">
+        {/* Sol detrás, entre Eventos (nube4) e Instalaciones (nube2) */}
+        <img
+          src={sol}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute left-[calc(66.666%+20px)] top-[calc(50%-100px)] z-0 hidden h-[28rem] w-[28rem] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain md:block md:h-[32rem] md:w-[32rem]"
+        />
 
         {servicios.map((servicio, index) => {
           const nube =
