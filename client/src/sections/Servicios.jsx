@@ -78,12 +78,12 @@ export default function Servicios() {
 
       {/* overflow-visible para que las nubes ×360% no se corten (igual en local y Netlify) */}
       <div className="relative grid grid-cols-1 gap-[70px] overflow-visible sm:grid-cols-2 md:grid-cols-3 md:gap-[47px]">
-        {/* Sol detrás, entre Eventos (nube4) e Instalaciones (nube2) */}
+        {/* Sol: sticky a la izquierda en móvil; posición fija entre nubes en desktop */}
         <img
           src={sol}
           alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute left-[calc(66.666%+20px)] top-[calc(50%-100px)] z-0 hidden h-[28rem] w-[28rem] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain md:block md:h-[32rem] md:w-[32rem]"
+          className="pointer-events-none sticky top-28 z-0 -mb-36 ml-[-0.5rem] h-40 w-40 max-w-none object-contain md:absolute md:left-[calc(66.666%+20px)] md:top-[calc(50%-100px)] md:mb-0 md:ml-0 md:block md:h-[32rem] md:w-[32rem] md:-translate-x-1/2 md:-translate-y-1/2"
         />
 
         {servicios.map((servicio, index) => {
