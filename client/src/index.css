@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap');
 @import 'tailwindcss';
 
 @theme {
-  --font-display: 'Fredoka', sans-serif;
-  --font-body: 'Nunito', sans-serif;
+  --font-display: 'Balsamiq Sans', sans-serif;
+  --font-body: 'Balsamiq Sans', sans-serif;
 
   --color-ak-orange: #f97316;
   --color-ak-fuchsia: #e879f9;
