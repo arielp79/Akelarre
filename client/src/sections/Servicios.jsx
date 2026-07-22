@@ -3,6 +3,7 @@ import { getServicios } from '../api';
 import nube1 from '../assets/nube1.png';
 import nube2 from '../assets/nube2.png';
 import nube4 from '../assets/nube4.png';
+import sol from '../assets/sol.png';
 
 const FALLBACK = [
   {
@@ -44,7 +45,7 @@ const NUBE_POR_NOMBRE = {
 const NUBE_POR_INDICE = [nube1, nube4, nube2];
 
 const cloudCardClass =
-  'relative min-w-[80%] shrink-0 snap-center overflow-visible bg-transparent p-5 transition duration-200 hover:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:min-w-[60%] md:min-w-0';
+  'relative z-[1] min-w-[80%] shrink-0 snap-center overflow-visible bg-transparent p-5 transition duration-200 hover:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:min-w-[60%] md:min-w-0';
 
 /** Tamaño fijo de nube (no %): el texto completo no la agranda ni la achica */
 const cloudImgClass =
@@ -76,7 +77,15 @@ export default function Servicios() {
       </div>
 
       {/* overflow-visible para que las nubes ×360% no se corten (igual en local y Netlify) */}
-      <div className="grid grid-cols-1 gap-[70px] overflow-visible sm:grid-cols-2 md:grid-cols-3 md:gap-[47px]">
+      <div className="relative grid grid-cols-1 gap-[70px] overflow-visible sm:grid-cols-2 md:grid-cols-3 md:gap-[47px]">
+        {/* Sol detrás, entre Eventos (nube4) e Instalaciones (nube2) */}
+        <img
+          src={sol}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute left-[calc(66.666%+20px)] top-[calc(50%-100px)] z-0 hidden h-[28rem] w-[28rem] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain md:block md:h-[32rem] md:w-[32rem]"
+        />
+
         {servicios.map((servicio, index) => {
           const nube =
             NUBE_POR_SLUG[servicio.slug] ||
