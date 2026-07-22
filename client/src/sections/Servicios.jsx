@@ -76,7 +76,7 @@ export default function Servicios() {
       </div>
 
       {/* overflow-visible para que las nubes ×360% no se corten (igual en local y Netlify) */}
-      <div className="grid grid-cols-1 gap-[47px] overflow-visible sm:grid-cols-2 md:grid-cols-3 md:gap-[31px]">
+      <div className="grid grid-cols-1 gap-[70px] overflow-visible sm:grid-cols-2 md:grid-cols-3 md:gap-[47px]">
         {servicios.map((servicio, index) => {
           const nube =
             NUBE_POR_SLUG[servicio.slug] ||
@@ -96,7 +96,11 @@ export default function Servicios() {
                 className={
                   nube === nube1
                     ? `${cloudImgClass} scale-[1.057]`
-                    : cloudImgClass
+                    : nube === nube4
+                      ? `${cloudImgClass} scale-[1.1]`
+                      : nube === nube2
+                        ? `${cloudImgClass} scale-[0.8925]`
+                        : cloudImgClass
                 }
               />
 

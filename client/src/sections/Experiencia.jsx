@@ -25,8 +25,8 @@ const ITEMS = [
 
 export default function Experiencia() {
   return (
-    <section className="ak-section pt-4">
-      <h2 className="mb-6 text-3xl sm:text-4xl">La Experiencia Facilitada</h2>
+    <section className="ak-section">
+      <h2 className="mb-[calc(1.5rem+20px)] text-3xl sm:text-4xl">La Experiencia Facilitada</h2>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {ITEMS.map((item) => (
           <div
