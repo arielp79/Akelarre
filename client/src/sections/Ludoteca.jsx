@@ -2,8 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { getJuegoRandom, getJuegos } from '../api';
 import boton2 from '../assets/boton2.png';
 import boton3 from '../assets/boton3.png';
-import card5 from '../assets/card5.png';
-import card6 from '../assets/card6.png';
+import card6 from '../assets/card6.svg';
 
 const TIPOS = [
   { value: '', label: 'Todos' },
@@ -23,25 +22,15 @@ const COLORS = [
   'bg-ak-cyan',
 ];
 
-const filterFieldClass =
-  'relative z-10 w-full appearance-none border-0 bg-transparent px-5 py-3 font-body text-sm font-semibold outline-none focus:ring-0';
-
 function FilterField({ label, children }) {
   return (
-    <label className="flex flex-col gap-1 text-sm font-bold">
+    <label className="flex w-full flex-col gap-1 text-sm font-bold">
       {label}
-      <span className="relative flex min-h-12 items-center overflow-visible">
-        <img
-          src={card6}
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none absolute left-[calc(50%-40px-21rem-125px)] top-1/2 z-0 h-[14rem] w-[42rem] max-w-none origin-left -translate-y-1/2 scale-x-[1.5] object-contain"
-        />
-        <span className="relative z-10 w-full">{children}</span>
-      </span>
+      {children}
     </label>
   );
 }
+
 export default function Ludoteca() {
   const [juegos, setJuegos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -109,7 +98,7 @@ export default function Ludoteca() {
   }
 
   return (
-    <section id="juegos" className="ak-section">
+    <section id="juegos" className="ak-section overflow-visible">
       <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
           <h2 className="text-3xl sm:text-4xl">Ludoteca</h2>
@@ -130,17 +119,17 @@ export default function Ludoteca() {
         </span>
       </div>
 
-      <div className="relative z-10 mb-6 mt-[30px] overflow-visible p-4 transition duration-200 hover:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+      <div className="ak-filter-panel mb-6 mt-[46px] overflow-visible sm:mt-6 lg:mt-[30px]">
         <img
-          src={card5}
+          src={card6}
           alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute left-[calc(50%+40px)] top-[calc(50%+100px)] z-0 h-[660%] w-[480%] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain mix-blend-screen sm:h-[720%] sm:w-[450%]"
+          className="ak-filter-panel-bg pointer-events-none absolute z-0 max-w-none -translate-x-1/2 -translate-y-1/2 object-fill"
         />
-        <div className="relative z-10 grid translate-y-[10px] gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="relative z-10 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-3 lg:grid-cols-5">
           <FilterField label="Buscar">
             <input
-              className={filterFieldClass}
+              className="ak-filter-input"
               type="search"
               value={filters.q}
               onChange={(e) => updateFilter('q', e.target.value)}
@@ -150,7 +139,7 @@ export default function Ludoteca() {
 
           <FilterField label="Tipo">
             <select
-              className={filterFieldClass}
+              className="ak-filter-input"
               value={filters.tipo}
               onChange={(e) => updateFilter('tipo', e.target.value)}
             >
@@ -164,7 +153,7 @@ export default function Ludoteca() {
 
           <FilterField label="Jugadores">
             <input
-              className={filterFieldClass}
+              className="ak-filter-input"
               type="number"
               min="1"
               value={filters.jugadores}
@@ -175,7 +164,7 @@ export default function Ludoteca() {
 
           <FilterField label="Edad mínima ≤">
             <input
-              className={filterFieldClass}
+              className="ak-filter-input"
               type="number"
               min="0"
               value={filters.edad}
@@ -186,7 +175,7 @@ export default function Ludoteca() {
 
           <FilterField label="Duración ≤ (min)">
             <input
-              className={filterFieldClass}
+              className="ak-filter-input"
               type="number"
               min="1"
               value={filters.duracion}
@@ -197,7 +186,7 @@ export default function Ludoteca() {
         </div>
       </div>
 
-      <div className="relative z-10 mb-4 mt-[60px] flex flex-wrap items-center gap-3 overflow-visible">
+      <div className="relative z-10 mb-4 mt-8 flex flex-wrap items-center gap-3 gap-x-[32px] overflow-visible sm:mt-10 sm:gap-x-3 lg:mt-[60px]">
         <button
           type="button"
           onClick={handleSorprendeme}

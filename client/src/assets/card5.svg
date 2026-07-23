@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 96" fill="none" preserveAspectRatio="none">
+  <!-- Panel filtros: pastilla más irregular / dibujada a mano -->
+  <path
+    d="M46 5.5
+       C38 4.2 29.5 5.8 23 9.5
+       C14.5 14.2 7.2 23.5 5.5 34
+       C3.2 47.5 6.8 60.2 15 69.5
+       C21.5 76.8 32 83.2 44 86
+       C52 88.2 61 87.5 70 88.5
+       L175 90.5
+       C210 91.8 248 89.2 285 91
+       L360 92.5
+       C378 93.2 395 90.5 408 84
+       C422 76.5 434 65 437 50
+       C439.5 37 434 24.5 424 16
+       C416 9.5 404 5.2 391 5.8
+       C378 6.5 365 4.5 352 6
+       L280 7.5
+       C240 8.8 200 5.2 160 6.5
+       L95 8
+       C78 8.5 62 7.2 46 5.5
+       Z"
+    fill="#ffffff"
+    stroke="#111111"
+    stroke-width="3.4"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  />
+  <path
+    d="M52 12
+       C40 11 28 15 21 23
+       C13 33 12 48 18 58
+       C24 68 36 76 50 78
+       L170 81
+       C230 83 290 79 350 82
+       L400 83
+       C418 83 432 72 435 54
+       C437 40 430 27 418 20
+       C408 14 394 13 380 14
+       L300 16
+       C250 17 200 13 150 15
+       L90 16
+       C75 16 62 14 52 12
+       Z"
+    fill="none"
+    stroke="#111111"
+    stroke-width="1.2"
+    stroke-opacity="0.4"
+    stroke-linejoin="round"
+  />
+</svg>
