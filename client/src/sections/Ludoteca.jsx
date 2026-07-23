@@ -130,14 +130,14 @@ export default function Ludoteca() {
         </span>
       </div>
 
-      <div className="relative z-10 mb-6 mt-[10px] overflow-visible p-4 transition duration-200 hover:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+      <div className="relative z-10 mb-6 mt-[30px] overflow-visible p-4 transition duration-200 hover:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
         <img
           src={card5}
           alt=""
           aria-hidden="true"
-          className="pointer-events-none absolute left-[calc(50%+40px)] top-[calc(50%+90px)] z-0 h-[660%] w-[480%] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain mix-blend-screen sm:h-[720%] sm:w-[450%]"
+          className="pointer-events-none absolute left-[calc(50%+40px)] top-[calc(50%+100px)] z-0 h-[660%] w-[480%] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain mix-blend-screen sm:h-[720%] sm:w-[450%]"
         />
-        <div className="relative z-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="relative z-10 grid translate-y-[10px] gap-3 sm:grid-cols-2 lg:grid-cols-5">
           <FilterField label="Buscar">
             <input
               className={filterFieldClass}
