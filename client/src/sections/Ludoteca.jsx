@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { getJuegoRandom, getJuegos } from '../api';
 import boton2 from '../assets/boton2.png';
 import boton3 from '../assets/boton3.png';
+import card5 from '../assets/card5.png';
+import card6 from '../assets/card6.png';
 
 const TIPOS = [
   { value: '', label: 'Todos' },
@@ -21,6 +23,25 @@ const COLORS = [
   'bg-ak-cyan',
 ];
 
+const filterFieldClass =
+  'relative z-10 w-full appearance-none border-0 bg-transparent px-5 py-3 font-body text-sm font-semibold outline-none focus:ring-0';
+
+function FilterField({ label, children }) {
+  return (
+    <label className="flex flex-col gap-1 text-sm font-bold">
+      {label}
+      <span className="relative flex min-h-12 items-center overflow-visible">
+        <img
+          src={card6}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute left-[calc(50%-40px-21rem-125px)] top-1/2 z-0 h-[14rem] w-[42rem] max-w-none origin-left -translate-y-1/2 scale-x-[1.5] object-contain"
+        />
+        <span className="relative z-10 w-full">{children}</span>
+      </span>
+    </label>
+  );
+}
 export default function Ludoteca() {
   const [juegos, setJuegos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -109,71 +130,74 @@ export default function Ludoteca() {
         </span>
       </div>
 
-      <div className="ak-card mb-6 grid gap-3 bg-white/90 p-4 sm:grid-cols-2 lg:grid-cols-5">
-        <label className="flex flex-col gap-1 text-sm font-bold">
-          Buscar
-          <input
-            className="ak-input"
-            type="search"
-            value={filters.q}
-            onChange={(e) => updateFilter('q', e.target.value)}
-            placeholder="Nombre o descripción"
-          />
-        </label>
+      <div className="relative z-10 mb-6 mt-[10px] overflow-visible p-4 transition duration-200 hover:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+        <img
+          src={card5}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute left-[calc(50%+40px)] top-[calc(50%+90px)] z-0 h-[660%] w-[480%] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain mix-blend-screen sm:h-[720%] sm:w-[450%]"
+        />
+        <div className="relative z-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <FilterField label="Buscar">
+            <input
+              className={filterFieldClass}
+              type="search"
+              value={filters.q}
+              onChange={(e) => updateFilter('q', e.target.value)}
+              placeholder="Nombre o descripción"
+            />
+          </FilterField>
 
-        <label className="flex flex-col gap-1 text-sm font-bold">
-          Tipo
-          <select
-            className="ak-input"
-            value={filters.tipo}
-            onChange={(e) => updateFilter('tipo', e.target.value)}
-          >
-            {TIPOS.map((tipo) => (
-              <option key={tipo.value || 'all'} value={tipo.value}>
-                {tipo.label}
-              </option>
-            ))}
-          </select>
-        </label>
+          <FilterField label="Tipo">
+            <select
+              className={filterFieldClass}
+              value={filters.tipo}
+              onChange={(e) => updateFilter('tipo', e.target.value)}
+            >
+              {TIPOS.map((tipo) => (
+                <option key={tipo.value || 'all'} value={tipo.value}>
+                  {tipo.label}
+                </option>
+              ))}
+            </select>
+          </FilterField>
 
-        <label className="flex flex-col gap-1 text-sm font-bold">
-          Jugadores
-          <input
-            className="ak-input"
-            type="number"
-            min="1"
-            value={filters.jugadores}
-            onChange={(e) => updateFilter('jugadores', e.target.value)}
-            placeholder="Ej. 4"
-          />
-        </label>
+          <FilterField label="Jugadores">
+            <input
+              className={filterFieldClass}
+              type="number"
+              min="1"
+              value={filters.jugadores}
+              onChange={(e) => updateFilter('jugadores', e.target.value)}
+              placeholder="Ej. 4"
+            />
+          </FilterField>
 
-        <label className="flex flex-col gap-1 text-sm font-bold">
-          Edad mínima ≤
-          <input
-            className="ak-input"
-            type="number"
-            min="0"
-            value={filters.edad}
-            onChange={(e) => updateFilter('edad', e.target.value)}
-            placeholder="Ej. 10"
-          />
-        </label>
+          <FilterField label="Edad mínima ≤">
+            <input
+              className={filterFieldClass}
+              type="number"
+              min="0"
+              value={filters.edad}
+              onChange={(e) => updateFilter('edad', e.target.value)}
+              placeholder="Ej. 10"
+            />
+          </FilterField>
 
-        <label className="flex flex-col gap-1 text-sm font-bold">
-          Duración ≤ (min)
-          <input
-            className="ak-input"
-            type="number"
-            min="1"
-            value={filters.duracion}
-            onChange={(e) => updateFilter('duracion', e.target.value)}
-            placeholder="Ej. 30"
-          />
-        </label>
+          <FilterField label="Duración ≤ (min)">
+            <input
+              className={filterFieldClass}
+              type="number"
+              min="1"
+              value={filters.duracion}
+              onChange={(e) => updateFilter('duracion', e.target.value)}
+              placeholder="Ej. 30"
+            />
+          </FilterField>
+        </div>
       </div>
 
-      <div className="relative z-10 mb-4 flex flex-wrap items-center gap-3 overflow-visible">
+      <div className="relative z-10 mb-4 mt-[60px] flex flex-wrap items-center gap-3 overflow-visible">
         <button
           type="button"
           onClick={handleSorprendeme}
